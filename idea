@@ -1,0 +1,10 @@
+- Before Event -> Method params and name for each param, start time
+- After Event -> Method params and name for each param
+- Event -> Event type, No of changes, time taken, before and after events, method name
+
+We also need an event store
+Concurrent hashmap -> ? Map by type to list?
+Concurrent hashset -> ? The user can easily query tbh no need for a custom dsl unless I want to build one
+
+
+Pretty prints probably
