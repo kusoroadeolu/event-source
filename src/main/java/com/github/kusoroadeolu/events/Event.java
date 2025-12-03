@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 
 public record Event(
-        String eventType,
+        EventType eventType,
         long timeToExecute, //Time taken in millis for the whole method to exec
         Object[] methodArgs,
         BeforeState beforeState,

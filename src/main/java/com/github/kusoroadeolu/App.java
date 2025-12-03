@@ -14,6 +14,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isAnnotatedWith;
 void main() throws IOException {
     premain(null, ByteBuddyAgent.install());
     var returnType = (new Foo()).test("Vic", 1, LocalDateTime.now());
+    var returnType2 = (new Foo()).test("Vic2", 1, LocalDateTime.now());
     EventStoreHolder.getEvents().forEach((k, v) -> IO.println("Key: %s, Val: %s".formatted(k, v)));
 }
 

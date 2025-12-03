@@ -1,29 +1,15 @@
 package com.github.kusoroadeolu;
 
+import com.github.kusoroadeolu.events.AggregateId;
 import com.github.kusoroadeolu.events.Event;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-//Stores events nothing else
-class EventStore {
-    private final Map<String, Event> eventMap;
+public interface EventStore {
+    AggregateId getAggregateId(Class<?> clazz, Object id);
 
-    public EventStore(Map<String, Event> map){
-        this.eventMap = map;
-    }
+    void addEvent(AggregateId aggregateId, Event e);
 
-    public EventStore(){
-        this(new ConcurrentHashMap<>());
-    }
-
-    public void addEvent(String eventType, Event e){
-        this.eventMap.put(eventType, e);
-    }
-
-    public Map<String, Event> getEvents(){
-        return Map.copyOf(this.eventMap);
-    }
-
+    Map<AggregateId, List<Event>> getEvents();
 }
