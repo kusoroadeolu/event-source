@@ -1,4 +1,4 @@
-package com.github.kusoroadeolu.events;
+package com.github.kusoroadeolu.snapshots;
 
 public record FieldMetadata(
         Class<?> clazz, Object value, String fieldName

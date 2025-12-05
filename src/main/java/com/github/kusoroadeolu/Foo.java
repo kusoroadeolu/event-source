@@ -1,16 +1,15 @@
 package com.github.kusoroadeolu;
 
 import com.github.kusoroadeolu.annotations.AggregateIdentity;
-import com.github.kusoroadeolu.annotations.EventSource;
+import com.github.kusoroadeolu.annotations.SnapSource;
 import com.github.kusoroadeolu.annotations.Mutates;
 
 import java.time.LocalDateTime;
 
-@EventSource(Integer.class)
+@SnapSource(Integer.class)
 public class Foo {
     @AggregateIdentity
     private final int fooId = 1;
-
     private String name;
     private LocalDateTime time;
 

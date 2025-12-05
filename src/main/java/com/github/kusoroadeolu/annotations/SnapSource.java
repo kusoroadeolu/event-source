@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface EventSource {
+public @interface SnapSource {
     Class<?>[] value(); //Value to know what field types you want to keep track of mutation
 }

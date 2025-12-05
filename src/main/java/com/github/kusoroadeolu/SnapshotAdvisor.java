@@ -2,7 +2,7 @@ package com.github.kusoroadeolu;
 
 import com.github.kusoroadeolu.annotations.AggregateIdentity;
 import com.github.kusoroadeolu.annotations.Mutates;
-import com.github.kusoroadeolu.events.*;
+import com.github.kusoroadeolu.snapshots.*;
 import net.bytebuddy.asm.Advice;
 
 import java.lang.reflect.Field;
@@ -10,13 +10,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.kusoroadeolu.EventStoreHolder.addEvent;
-import static com.github.kusoroadeolu.EventStoreHolder.getId;
+import static com.github.kusoroadeolu.SnapshotStoreHolder.addEvent;
+import static com.github.kusoroadeolu.SnapshotStoreHolder.getId;
 import static com.github.kusoroadeolu.utils.Assertions.*;
 import static java.lang.System.currentTimeMillis;
 import static java.time.LocalDateTime.now;
 
-public class EventAdvisor {
+public class SnapshotAdvisor {
 
 
     @Advice.OnMethodEnter
@@ -45,8 +45,8 @@ public class EventAdvisor {
         final long tte = as.exitedAt() - bs.beganAt();
         final String eventType = origin.getAnnotation(Mutates.class).value();
 
-        final Event event = new Event(new EventType(eventType), tte, args, bs, as, now()); //TODO Begin working on event sourcing
-        addEvent(aggregateId, event);
+        final Snapshot snapshot = new Snapshot(new SnapshotType(eventType), tte, args, bs, as, now()); //TODO Begin working on snapshot sourcing
+        addEvent(aggregateId, snapshot);
     }
 
 
@@ -65,7 +65,7 @@ public class EventAdvisor {
             md.add(new FieldMetadata(f.getType(), f.get(self), f.getName()));
         }
 
-        assertNotNull(id, "Event sourced class must contain an aggregate ID");
+        assertNotNull(id, "Snapshot sourced class must contain an aggregate ID");
         return id;
     }
 

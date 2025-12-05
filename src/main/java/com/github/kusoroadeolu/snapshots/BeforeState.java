@@ -1,4 +1,4 @@
-package com.github.kusoroadeolu.events;
+package com.github.kusoroadeolu.snapshots;
 
 import java.util.List;
 

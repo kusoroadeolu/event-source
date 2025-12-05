@@ -2,7 +2,7 @@
 - After Event -> Method params and name for each param
 - Event -> Event type, No of changes, time taken, before and after events, method name
 
-We also need an event store
+We also need an snapshot store
 Concurrent hashmap -> ? Map by type to list?
 Concurrent hashset -> ? The user can easily query tbh no need for a custom dsl unless I want to build one
 

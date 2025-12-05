@@ -1,7 +1,7 @@
 package com.github.kusoroadeolu;
 
-import com.github.kusoroadeolu.events.AggregateId;
-import com.github.kusoroadeolu.events.Event;
+import com.github.kusoroadeolu.snapshots.AggregateId;
+import com.github.kusoroadeolu.snapshots.Snapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +12,18 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 //Stores events nothing else
-public class PreConfiguredEventStore implements EventStore{
-    private final Map<AggregateId, List<Event>> eventMap;
-    private final Map<AggregateId, Integer> versions;
+public class PreConfiguredSnapshotStore implements SnapshotStore {
+    private final Map<AggregateId, List<Snapshot>> eventMap;
     private final Map<AggregateId, Lock> locks;
 
 
-    public PreConfiguredEventStore(Map<AggregateId, List<Event>> map){
+    public PreConfiguredSnapshotStore(Map<AggregateId, List<Snapshot>> map){
         this.eventMap = map;
         this.locks = new ConcurrentHashMap<>();
-        this.versions = new ConcurrentHashMap<>();
+
     }
 
-    public PreConfiguredEventStore(){
+    public PreConfiguredSnapshotStore(){
         this(new ConcurrentHashMap<>());
     }
 
@@ -38,7 +37,7 @@ public class PreConfiguredEventStore implements EventStore{
         return op.orElse(new AggregateId(clazz, id));
     }
 
-    public void addEvent(AggregateId aggregateId, Event e){
+    public void addEvent(AggregateId aggregateId, Snapshot e){
        final Lock lock = this.locks.computeIfAbsent(aggregateId, (_) -> new ReentrantLock());
        lock.lock();
        try {
@@ -48,7 +47,7 @@ public class PreConfiguredEventStore implements EventStore{
        }
     }
 
-    public Map<AggregateId, List<Event>> getEvents(){
+    public Map<AggregateId, List<Snapshot>> getEvents(){
         return Map.copyOf(this.eventMap);
     }
 
